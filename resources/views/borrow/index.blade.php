@@ -29,7 +29,6 @@
             <button type="submit" class="btn btn-success">Buch ausleihen</button>
         </form>
     </div>
-
 </div>
 
 @endsection

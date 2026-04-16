@@ -33,10 +33,7 @@ class BookController extends Controller
 
     public function return(Book $book)
     {
-        $borrowing = $book->borrowings()
-            ->whereNull('returned_at')
-            ->latest()
-            ->first();
+        $borrowing = $book->borrowings()->whereNull('returned_at')->latest()->first();
 
         if ($borrowing) {
             $borrowing->update(['returned_at' => now()]);
@@ -45,6 +42,6 @@ class BookController extends Controller
 
         return back();
     }
-    
+
 }
 

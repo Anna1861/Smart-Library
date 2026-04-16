@@ -23,7 +23,7 @@
     </head>
 <body class="bg-dark text-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary mb-4">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Smart Library</a>
         <div class="collapse navbar-collapse">
