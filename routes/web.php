@@ -5,7 +5,11 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BorrowController;
+use Illuminate\Support\Facades\DB;
 
+Route::get('/test-db', function () {
+    return DB::connection()->getPdo();
+});
 
 Route::get('/', [BookController::class, 'index']);
 
