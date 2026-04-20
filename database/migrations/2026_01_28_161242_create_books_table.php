@@ -14,10 +14,6 @@ return new class extends Migration
             $table->string('author');
             $table->foreignId('genre_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_available')->default(true);
-
-            $table->string('path'); #photo
-            $table->foreignId('section')->constrained()->cascadeOnDelete(); # create section table
-
             $table->timestamps();
 });
 
