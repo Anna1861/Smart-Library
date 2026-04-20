@@ -17,7 +17,6 @@ return new class extends Migration
 
             $table->string('path'); #photo
             $table->foreignId('section')->constrained()->cascadeOnDelete(); # create section table
-            $table->
 
             $table->timestamps();
 });
