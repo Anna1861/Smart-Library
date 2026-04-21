@@ -28,21 +28,24 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Genre created successfully.');
     }
 
-    public function storeBook(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string',
-            'author' => 'required|string',
-            'genre_id' => 'required|exists:genres,id',
-        ]);
+public function storeBook(Request $request)
+{
+    $data = $request->validate([
+        'title' => 'required|string',
+        'author' => 'required|string',
+        'genre_id' => 'required|exists:genres,id',
+        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+    ]);
 
-        Book::create([
-            'title' => $request->title,
-            'author' => $request->author,
-            'genre_id' => $request->genre_id,
-            'is_available' => true,
-        ]);
-
-        return redirect()->back()->with('success', 'Book created successfully.');
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('books', 'public');
+        $data['image'] = $path;
     }
+
+    $data['is_available'] = true;
+
+    Book::create($data);
+
+    return redirect()->back()->with('success', 'Book created successfully.');
+}
 }

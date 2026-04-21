@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Borrowing;
 use Illuminate\Http\Request;
+use App\Models\Genre;
 
 class BorrowController extends Controller
 {
     public function index()
     {
-        $books = Book::where('is_available', true)->get();
-        return view('borrow.index', compact('books'));
+$books = Book::where('is_available', true)->get();
+$borrowedBooks = Book::where('is_available', false)->get();
+$genres = Genre::all();
+
+return view('borrow.index', compact('books', 'borrowedBooks', 'genres'));
     }
 
     public function borrowBook(Request $request)

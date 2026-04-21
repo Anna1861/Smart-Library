@@ -12,7 +12,8 @@ class Book extends Model
         'title',
         'author',
         'genre_id',
-        'is_available'
+        'is_available',
+        'image'
     ];
 
     public function genre()

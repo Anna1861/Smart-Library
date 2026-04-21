@@ -9,9 +9,9 @@
 :root {
     --bg:           #0b0c10;
     --bg-elevated:  #111318;
-    --bg-card:      #13151c;
-    --bg-card-alt:  #181b24;
-    --bg-hover:     #1c1f2a;
+--bg-card:      #1e2230;     /* основной серый */
+--bg-card-alt:  #262b3a;     /* чуть светлее */
+--bg-hover:     #2c3142;     /* ховер тоже светлее */
 
     --border:       rgba(255,255,255,0.07);
     --border-light: rgba(255,255,255,0.04);
@@ -43,9 +43,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    background: var(--bg);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -80,7 +78,6 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    font-family: 'DM Mono', monospace;
     font-size: 10px;
     font-weight: 400;
     letter-spacing: 2px;
@@ -99,7 +96,6 @@ body {
 }
 
 .dash-title {
-    font-family: 'Playfair Display', serif;
     font-size: 36px;
     font-weight: 700;
     letter-spacing: -0.5px;
@@ -112,7 +108,6 @@ body {
 }
 
 .dash-date {
-    font-family: 'DM Mono', monospace;
     font-size: 11px;
     color: var(--text-muted);
     margin-top: 6px;
@@ -128,7 +123,6 @@ body {
     background: var(--bg-card);
     font-size: 11px;
     color: var(--text-soft);
-    font-family: 'DM Mono', monospace;
     letter-spacing: 0.5px;
     transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
     cursor: default;
@@ -225,7 +219,6 @@ html, body {
 .stat-icon--borrowed  { background: var(--rose-dim); color: var(--rose); }
 
 .stat-label {
-    font-family: 'DM Mono', monospace;
     font-size: 10px;
     text-transform: uppercase;
     letter-spacing: 1.5px;
@@ -234,7 +227,6 @@ html, body {
 }
 
 .stat-value {
-    font-family: 'Playfair Display', serif;
     font-size: 42px;
     font-weight: 700;
     line-height: 1;
@@ -251,7 +243,6 @@ html, body {
     border-top: 1px solid var(--border-light);
     font-size: 11px;
     color: var(--text-muted);
-    font-family: 'DM Mono', monospace;
 }
 
 .stat-pill {
@@ -291,14 +282,12 @@ html, body {
 .card-title-wrap {}
 
 .card-title {
-    font-family: 'Playfair Display', serif;
     font-size: 16px;
     font-weight: 600;
     color: var(--text);
 }
 
 .card-subtitle {
-    font-family: 'DM Mono', monospace;
     font-size: 10px;
     color: var(--text-muted);
     text-transform: uppercase;
@@ -307,7 +296,6 @@ html, body {
 }
 
 .card-action {
-    font-family: 'DM Mono', monospace;
     font-size: 10px;
     color: var(--text-muted);
     text-transform: uppercase;
@@ -345,7 +333,6 @@ html, body {
     display: flex;
     align-items: center;
     gap: 7px;
-    font-family: 'DM Mono', monospace;
     font-size: 11px;
     color: var(--text-soft);
     cursor: default;
@@ -381,7 +368,6 @@ html, body {
 .borrow-item:hover { background: var(--bg-hover); }
 
 .borrow-index {
-    font-family: 'DM Mono', monospace;
     font-size: 10px;
     color: var(--text-muted);
     width: 16px;
@@ -399,7 +385,6 @@ html, body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Playfair Display', serif;
     font-size: 13px;
     font-weight: 700;
     color: var(--gold-bright);
@@ -425,7 +410,6 @@ html, body {
 }
 
 .borrow-meta {
-    font-family: 'DM Mono', monospace;
     font-size: 10px;
     color: var(--text-muted);
     margin-top: 3px;
@@ -438,7 +422,6 @@ html, body {
     flex-shrink: 0;
     padding: 3px 9px;
     border-radius: 100px;
-    font-family: 'DM Mono', monospace;
     font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -460,7 +443,6 @@ html, body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: 'DM Mono', monospace;
     font-size: 9px;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -493,6 +475,90 @@ html, body {
 .dash-header        { animation: fadeUp 0.5s var(--ease) both; }
 .stat-grid          { animation: fadeUp 0.5s var(--ease) 0.08s both; }
 .panel-grid         { animation: fadeUp 0.5s var(--ease) 0.16s both; }
+
+
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 18px;
+}
+
+.book-card {
+    background: var(--bg-card-alt);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: all 0.3s var(--ease);
+    cursor: pointer;
+}
+
+.book-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    border-color: var(--gold);
+}
+
+.book-cover {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+}
+
+.book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.book-info {
+    padding: 12px;
+}
+
+.book-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+}
+
+.book-author {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 3px;
+}
+
+.book-status {
+    margin-top: 8px;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 100px;
+    display: inline-block;
+}
+
+.book-status.available {
+    background: var(--teal-dim);
+    color: var(--teal);
+}
+
+.book-status.borrowed {
+    background: var(--rose-dim);
+    color: var(--rose);
+}
+
+.stat-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.stat-icon {
+    margin-bottom: 0;
+}
+
+.stat-label {
+    margin-bottom: 0;
+}
 </style>
 
 
@@ -500,7 +566,7 @@ html, body {
 
     <header class="dash-header">
         <div class="dash-header-left">
-            <div class="dash-eyebrow">Bibliotheksverwaltung</div>
+            <div class="dash-eyebrow">Smart Library</div>
             <h1 class="dash-title">Bestandsübersicht <span></span></h1>
         </div>
 
@@ -509,19 +575,23 @@ html, body {
 
     <div class="stat-grid">
 
-        <div class="stat-card stat-card--total">
-            <div class="stat-card-inner">
+<div class="stat-card stat-card--total">
+    <div class="stat-card-inner">
+            <div class="stat-head">
                 <div class="stat-icon stat-icon--total">&#9776;</div>
                 <div class="stat-label">Gesamtanzahl Bücher</div>
-                <div class="stat-value stat-value--total">{{ $totalBooks }}</div>
-                <div class="stat-footer">Gesamter Katalog</div>
             </div>
-        </div>
+            <div class="stat-value stat-value--total">{{ $totalBooks }}</div>
+        <div class="stat-footer">Gesamter Katalog</div>
+ </div>
+ </div>
 
         <div class="stat-card stat-card--available">
             <div class="stat-card-inner">
-                <div class="stat-icon stat-icon--available">&#10003;</div>
-                <div class="stat-label">Verfügbar</div>
+         <div class="stat-head">
+    <div class="stat-icon stat-icon--available">&#10003;</div>
+    <div class="stat-label">Verfügbar</div>
+</div>
                 <div class="stat-value stat-value--available">{{ $availableBooks }}</div>
                 <div class="stat-footer">
                     <span class="stat-pill stat-pill--pos">
@@ -535,8 +605,10 @@ html, body {
 
         <div class="stat-card stat-card--borrowed">
             <div class="stat-card-inner">
-                <div class="stat-icon stat-icon--borrowed">&#8593;</div>
-                <div class="stat-label">Ausgeliehen</div>
+           <div class="stat-head">
+    <div class="stat-icon stat-icon--borrowed">&#8593;</div>
+    <div class="stat-label">Ausgeliehen</div>
+</div>
                 <div class="stat-value stat-value--borrowed">{{ $borrowedBooks }}</div>
                 <div class="stat-footer">
                     <span class="stat-pill stat-pill--neg">
@@ -602,9 +674,7 @@ html, body {
                 </ul>
             </div>
         </div>
-
     </div>
-
 </div>
 
 

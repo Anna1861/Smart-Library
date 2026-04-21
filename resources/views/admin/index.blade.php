@@ -2,91 +2,311 @@
 
 @section('content')
 
-<div class="container py-4">
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+    }
 
-    <h1 class="mb-4 text-white">Verwaltung</h1>
+    .card-modern {
+        background: rgba(255, 255, 255, 0.04);
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.08);
+        backdrop-filter: blur(12px);
+        transition: 0.3s;
+    }
+
+    .card-modern:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    }
+
+    .form-control, .form-select {
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.08);
+        color: white;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .form-control::placeholder {
+        color: rgba(255,255,255,0.5);
+    }
+
+    .form-control:focus, .form-select:focus {
+        border-color: #f97316;
+        box-shadow: 0 0 0 2px rgba(249,115,22,0.3);
+        background: rgba(255,255,255,0.08);
+        color: white;
+    }
+
+    .btn-modern {
+        background: linear-gradient(135deg, #f97316, #ea580c);
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+    .btn-modern:hover {
+        transform: scale(1.04);
+        box-shadow: 0 8px 20px rgba(249,115,22,0.4);
+    }
+
+    .table-modern {
+        background: rgba(255,255,255,0.04);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .table-modern table {
+        margin: 0;
+    }
+
+    .table-modern th {
+        background: rgba(255,255,255,0.06);
+        font-weight: 500;
+        color: rgba(255,255,255,0.7);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .table-modern tr {
+        transition: 0.2s;
+    }
+
+    .table-modern tr:hover {
+        background: rgba(249,115,22,0.08);
+    }
+
+    .badge-available {
+        background: rgba(34,197,94,0.15);
+        color: #22c55e;
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+
+    .badge-borrowed {
+        background: rgba(239,68,68,0.15);
+        color: #ef4444;
+        border-radius: 8px;
+        padding: 5px 10px;
+    }
+
+    h1, h2 {
+        font-weight: 600;
+    }
+
+    .table-modern {
+    background: rgba(255,255,255,0.04);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.table-modern table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent !important;
+}
+
+.table-modern thead {
+    background: rgba(255,255,255,0.05);
+}
+
+.table-modern th {
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.table-modern td,
+.table-modern th {
+    padding: 14px 16px;
+}
+
+.table-modern tr:hover {
+    background: rgba(249,115,22,0.08);
+}
+
+.btn-action {
+    border: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: 0.3s;
+    width: 100px;
+}
+
+.btn-action.borrow {
+    background: rgba(249,115,22,0.15);
+    color: #f97316;
+}
+
+.btn-action.borrow:hover {
+    background: #f97316;
+    color: white;
+}
+
+.btn-action.return {
+    background: rgba(239,68,68,0.15);
+    color: #ef4444;
+}
+
+.btn-action.return:hover {
+    background: #ef4444;
+    color: white;
+}
+</style>
+
+<div class="container py-5">
+
+    <h1 class="text-white mb-5">Verwaltung</h1>
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-success shadow-sm">
+            {{ session('success') }}
+        </div>
     @endif
 
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <div class="card bg-dark text-white shadow">
-                <div class="card-body">
-                    <h5 class="card-title">Neues Genre erstellen</h5>
-                    <form action="{{ route('admin.genre.store') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="genreName" class="form-label">Genre-Name</label>
-                            <input type="text" name="name" id="genreName" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-success">Genre erstellen</button>
-                    </form>
-                </div>
+    <div class="row g-4">
+
+        <!-- GENRE -->
+        <div class="col-md-6">
+            <div class="card card-modern p-4 text-white">
+                <h5 class="mb-3">Neues Genre</h5>
+
+                <form action="{{ route('admin.genre.store') }}" method="POST">
+                    @csrf
+
+                    <input type="text"
+                           name="name"
+                           class="form-control mb-3"
+                           placeholder="Genre Name">
+
+                    <button class="btn btn-modern w-100">
+                        Erstellen
+                    </button>
+                </form>
             </div>
         </div>
 
-        <div class="col-md-6 mb-4">
-            <div class="card bg-dark text-white shadow">
-                <div class="card-body">
-                    <h5 class="card-title">Neues Buch erstellen</h5>
-                    <form action="{{ route('admin.book.store') }}" method="POST">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="bookTitle" class="form-label">Buchtitel</label>
-                            <input type="text" name="title" id="bookTitle" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="bookAuthor" class="form-label">Autor</label>
-                            <input type="text" name="author" id="bookAuthor" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="bookGenre" class="form-label">Genre</label>
-                            <select name="genre_id" id="bookGenre" class="form-select" required>
-                                <option value="">Genre auswählen</option>
-                                @foreach($genres as $genre)
-                                    <option value="{{ $genre->id }}">{{ $genre->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-success">Buch erstellen</button>
-                    </form>
-                </div>
+        <!-- BOOK -->
+        <div class="col-md-6">
+            <div class="card card-modern p-4 text-white">
+                <h5 class="mb-3">Neues Buch</h5>
+
+                <form action="{{ route('admin.book.store') }}"
+                      method="POST"
+                      enctype="multipart/form-data">
+
+                    @csrf
+
+                    <input type="text" name="title"
+                           class="form-control mb-2"
+                           placeholder="Titel">
+
+                    <input type="text" name="author"
+                           class="form-control mb-2"
+                           placeholder="Autor">
+
+                    <select name="genre_id"
+                            class="form-select mb-2">
+                        <option>Genre wählen</option>
+                        @foreach($genres as $genre)
+                            <option value="{{ $genre->id }}">
+                                {{ $genre->name }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <input type="file"
+                           name="image"
+                           class="form-control mb-3">
+
+                    <button class="btn btn-modern w-100">
+                        Buch erstellen
+                    </button>
+
+                </form>
             </div>
         </div>
 
     </div>
 
-    <h2 class="mt-4 mb-3 text-white">Alle Bücher</h2>
-    <div class="table-responsive">
-        <table class="table table-dark table-striped">
+    <!-- TABLE -->
+    <h2 class="mt-5 mb-3 text-white">Alle Bücher</h2>
+
+    <div class="table-modern">
+
+        <table class="text-white align-middle">
+
             <thead>
                 <tr>
+                    <th></th>
                     <th>Titel</th>
                     <th>Autor</th>
                     <th>Genre</th>
                     <th>Status</th>
+                    <th></th>
                 </tr>
             </thead>
+
             <tbody>
                 @foreach($books as $book)
                     <tr>
-                        <td>{{ $book->title }}</td>
+
+                        <td>
+                            <img
+                                src="{{ $book->image ? asset('storage/'.$book->image) : 'https://via.placeholder.com/50x70' }}"
+                                width="50"
+                                style="border-radius: 6px; object-fit: cover;"
+                            >
+                        </td>
+
+                        <td class="fw-semibold">{{ $book->title }}</td>
                         <td>{{ $book->author }}</td>
                         <td>{{ $book->genre->name }}</td>
+
                         <td>
                             @if($book->is_available)
-                                <span class="badge bg-success">Verfügbar</span>
+                                <span class="badge-available">
+                                    Verfügbar
+                                </span>
                             @else
-                                <span class="badge bg-danger">Ausgeliehen</span>
+                                <span class="badge-borrowed">
+                                    Ausgeliehen
+                                </span>
                             @endif
                         </td>
+<td>
+
+    @if($book->is_available)
+        <form action="{{ route('books.borrow', $book) }}" method="POST">
+            @csrf
+            <button class="btn-action borrow">
+                Borrow
+            </button>
+        </form>
+    @else
+        <form action="{{ route('books.return', $book) }}" method="POST">
+            @csrf
+            <button class="btn-action return">
+                Return
+            </button>
+        </form>
+    @endif
+
+</td>
                     </tr>
                 @endforeach
             </tbody>
+
         </table>
+
     </div>
+
 </div>
 
 @endsection

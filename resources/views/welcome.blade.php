@@ -21,21 +21,29 @@
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     </head>
-<body class="bg-dark text-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-secondary mb-4">
+    <style>
+.main-bg {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    min-height: 100vh;
+}
+</style>
+<body class="main-bg text-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-warning mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/">Smart Library</a>
+        <a class="navbar-brand text-dark" href="/">Smart Library</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
+<!--
                 <li class="nav-item">
                     <a class="nav-link" href="/dashboard">Dashboard</a>
                 </li>
+            -->
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin">Admin</a>
+                    <a class="nav-link text-dark" href="/admin">Admin</a>
                 </li>
                  <li class="nav-item">
-                    <a class="nav-link" href="/borrow">Borrow</a>
+                    <a class="nav-link text-dark" href="/borrow">Borrow</a>
                 </li>
             </ul>
         </div>

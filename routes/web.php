@@ -11,10 +11,11 @@ Route::get('/test-db', function () {
     return DB::connection()->getPdo();
 });
 
-Route::get('/', [BookController::class, 'index']);
+Route::get('/', [DashboardController::class, 'index']);
 
-Route::post('/books/{book}/borrow', [BookController::class, 'borrow']);
-Route::post('/books/{book}/return', [BookController::class, 'return']);
+Route::post('/books/{book}/borrow', [BookController::class, 'borrow'])->name('books.borrow');
+Route::post('/books/{book}/return', [BookController::class, 'return'])->name('books.return');
+
 Route::get('/dashboard', [DashboardController::class, 'index']);
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
