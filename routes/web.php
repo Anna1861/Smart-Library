@@ -6,12 +6,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BorrowController;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\SensoreReading;
-use App\Http\Controllers\SensoreReadingController;
+use App\Http\Controllers\SensorReadingController ;
 
 Route::get('/test-db', function () {
     return DB::connection()->getPdo();
-}); 
+});
 
 Route::get('/', [DashboardController::class, 'index']);
 
@@ -28,4 +27,4 @@ Route::get('/borrow', [BorrowController::class, 'index'])->name('borrow.index');
 Route::post('/borrow', [BorrowController::class, 'borrowBook'])->name('borrow.book');
 
 
-Route::get('/api/sensors/latest', [SensoreReadingController::class, 'latest']);
+Route::post('/api/sensors/store', [SensorReadingController::class, 'store']);
