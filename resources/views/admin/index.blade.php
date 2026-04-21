@@ -211,6 +211,8 @@
                            class="form-control mb-2"
                            placeholder="Autor">
 
+                           <textarea type="text" name="desc" class="form-control mb-2"
+                           placeholder="Description"></textarea>
                     <select name="genre_id"
                             class="form-select mb-2">
                         <option>Genre wählen</option>

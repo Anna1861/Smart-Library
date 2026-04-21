@@ -35,7 +35,8 @@ public function storeBook(Request $request)
         'title' => 'required|string',
         'author' => 'required|string',
         'genre_id' => 'required|exists:genres,id',
-        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+        'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'desc' => 'nullable|string'
     ]);
 
     if ($request->hasFile('image')) {
