@@ -249,6 +249,7 @@
                     <th></th>
                     <th>Titel</th>
                     <th>Autor</th>
+                    <th>Description</th>
                     <th>Genre</th>
                     <th>Status</th>
                     <th></th>
@@ -269,6 +270,7 @@
 
                         <td class="fw-semibold">{{ $book->title }}</td>
                         <td>{{ $book->author }}</td>
+                        <td>{{ $book->desc }}</td>
                         <td>{{ $book->genre->name }}</td>
 
                         <td>
