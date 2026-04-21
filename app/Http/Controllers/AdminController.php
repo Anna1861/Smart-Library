@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Genre;
 use App\Models\Book;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 
 class AdminController extends Controller
 {
@@ -28,6 +30,8 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Genre created successfully.');
     }
 
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 public function storeBook(Request $request)
 {
     $data = $request->validate([
@@ -38,8 +42,13 @@ public function storeBook(Request $request)
     ]);
 
     if ($request->hasFile('image')) {
-        $path = $request->file('image')->store('books', 'public');
-        $data['image'] = $path;
+
+        $uploadedFileUrl = Cloudinary::upload(
+            $request->file('image')->getRealPath(),
+            ['folder' => 'books']
+        )->getSecurePath();
+
+        $data['image'] = $uploadedFileUrl;
     }
 
     $data['is_available'] = true;
