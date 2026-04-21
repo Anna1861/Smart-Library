@@ -6,7 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BorrowController;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\SensorReadingController ;
+use App\Http\Controllers\SensorReadingController;
 
 Route::get('/test-db', function () {
     return DB::connection()->getPdo();
@@ -27,4 +27,8 @@ Route::get('/borrow', [BorrowController::class, 'index'])->name('borrow.index');
 Route::post('/borrow', [BorrowController::class, 'borrowBook'])->name('borrow.book');
 
 
-Route::post('/api/sensors/store', [SensorReadingController::class, 'store']);
+Route::post('/api/sensors/store', [SensorReadingController::class, 'store'])->withoutMiddleware([VerifyCsrfToken::class]);
+
+
+Route::post('/api/sensors/store', [SensorReadingController::class, 'store'])
+    ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
