@@ -7,7 +7,6 @@ use App\Models\Genre;
 use App\Models\Book;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
-
 class AdminController extends Controller
 {
     public function index()
@@ -29,8 +28,6 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'Genre created successfully.');
     }
-
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 public function storeBook(Request $request)
 {
