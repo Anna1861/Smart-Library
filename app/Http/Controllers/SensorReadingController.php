@@ -24,7 +24,7 @@ class SensorReadingController extends Controller
                 $data = $data['received'];
             }
 
-            DB::table('sensor_readings')->insert([
+            DB::table('sensore_readings')->insert([
                 'temperature' => $data['temperature'] ?? 0,
                 'humidity' => $data['humidity'] ?? 0,
                 'created_at' => now(),
