@@ -621,7 +621,25 @@ html, body {
         </div>
 
     </div>
+<div style="padding:20px; margin-top:20px; border:1px solid #ddd; border-radius:12px; width:250px;">
+    <h3>🌡 Sensor Live</h3>
 
+    <p>Temperature: <span id="temp">--</span> °C</p>
+    <p>Humidity: <span id="hum">--</span> %</p>
+</div>
+
+<script>
+async function loadSensor() {
+    const res = await fetch('/sensor/latest');
+    const data = await res.json();
+
+    document.getElementById('temp').innerText = data.temperatur;
+    document.getElementById('hum').innerText = data.humidity;
+}
+
+setInterval(loadSensor, 3000);
+loadSensor();
+</script>
     <div class="panel-grid">
 
         <div class="card">

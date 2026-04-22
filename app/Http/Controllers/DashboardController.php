@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Borrowing;
 use App\Models\Genre;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -26,14 +27,17 @@ class DashboardController extends Controller
     ])->get();
 
     $books = Book::latest()->take(12)->get();
-
+$sensor = DB::table('sensore_readings')
+    ->latest()
+    ->first();
     return view('dashboard', compact(
         'totalBooks',
         'availableBooks',
         'borrowedBooks',
         'lastBorrowed',
         'genreStats',
-        'books' 
+        'books',
+'sensor'
     ));
 }
 }

@@ -29,3 +29,4 @@ Route::post('/borrow', [BorrowController::class, 'borrowBook'])->name('borrow.bo
 
 
 Route::match(['get', 'post'], '/api/sensors/store', [SensorReadingController::class, 'store']);
+Route::get('/sensor/latest', [DashboardController::class, 'latest']);
