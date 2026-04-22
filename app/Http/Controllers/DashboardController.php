@@ -40,4 +40,23 @@ $sensor = DB::table('sensore_readings')
 'sensor'
     ));
 }
+
+public function latest()
+{
+    try {
+        $data = DB::table('sensore_readings')
+            ->orderBy('id', 'desc')
+            ->first();
+
+        return response()->json([
+            'temperatur' => $data->temperatur ?? null,
+            'humidity' => $data->humidity ?? null,
+        ]);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
 }
