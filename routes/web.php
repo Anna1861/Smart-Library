@@ -27,6 +27,5 @@ Route::get('/borrow', [BorrowController::class, 'index'])->name('borrow.index');
 Route::post('/borrow', [BorrowController::class, 'borrowBook'])->name('borrow.book');
 
 
-Route::post('/api/sensors/store', [SensorReadingController::class, 'store'])->withoutMiddleware([VerifyCsrfToken::class]);
 
 Route::match(['get', 'post'], '/api/sensors/store', [SensorReadingController::class, 'store']);
