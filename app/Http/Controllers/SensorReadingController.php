@@ -10,8 +10,7 @@ class SensorReadingController extends Controller
 public function store(Request $request)
 {
     return response()->json([
-        'ok' => true,
-        'data' => $request->all()
+        'received' => $request->all()
     ]);
 }
 }
