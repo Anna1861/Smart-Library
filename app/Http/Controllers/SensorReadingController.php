@@ -9,36 +9,37 @@ class SensorReadingController extends Controller
 {
     public function store(Request $request)
     {
-        // берём данные напрямую (самый надёжный способ)
-        $temperature = $request->input('temperature');
-        $humidity = $request->input('humidity');
+        try {
 
-        // если вдруг пришёл JSON строкой
-        if (!$temperature && !$humidity) {
-            $data = json_decode($request->getContent(), true);
+            // получаем любые данные (без зависимостей от формата)
+            $data = $request->all();
 
-            $temperature = $data['temperature'] ?? null;
-            $humidity = $data['humidity'] ?? null;
-        }
+            // если пришла строка JSON — распарсим
+            if (empty($data) || count($data) === 0) {
+                $data = json_decode($request->getContent(), true);
+            }
 
-        // защита
-        if ($temperature === null || $humidity === null) {
+            // если вдруг есть лишний слой
+            if (isset($data['received'])) {
+                $data = $data['received'];
+            }
+
+            DB::table('sensor_readings')->insert([
+                'temperature' => $data['temperature'] ?? 0,
+                'humidity' => $data['humidity'] ?? 0,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return response()->json([
+                'status' => 'ok'
+            ]);
+
+        } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Invalid payload'
-            ], 400);
+                'message' => $e->getMessage()
+            ], 500);
         }
-
-        // запись в базу
-        DB::table('sensor_readings')->insert([
-            'temperature' => $temperature,
-            'humidity' => $humidity,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        return response()->json([
-            'status' => 'ok'
-        ]);
     }
 }
