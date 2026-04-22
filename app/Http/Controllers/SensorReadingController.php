@@ -9,21 +9,30 @@ class SensorReadingController extends Controller
 {
     public function store(Request $request)
     {
-        // достаём данные
-        $data = $request->input('received');
+        // берём данные напрямую (самый надёжный способ)
+        $temperature = $request->input('temperature');
+        $humidity = $request->input('humidity');
 
-        // защита на случай пустого запроса
-        if (!$data) {
+        // если вдруг пришёл JSON строкой
+        if (!$temperature && !$humidity) {
+            $data = json_decode($request->getContent(), true);
+
+            $temperature = $data['temperature'] ?? null;
+            $humidity = $data['humidity'] ?? null;
+        }
+
+        // защита
+        if ($temperature === null || $humidity === null) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'No data received'
+                'message' => 'Invalid payload'
             ], 400);
         }
 
         // запись в базу
         DB::table('sensor_readings')->insert([
-            'temperature' => $data['temperature'] ?? null,
-            'humidity' => $data['humidity'] ?? null,
+            'temperature' => $temperature,
+            'humidity' => $humidity,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
