@@ -621,8 +621,8 @@ html, body {
         </div>
 
     </div>
-<div style="padding:20px; margin-top:20px; border:1px solid #ddd; border-radius:12px; width:250px;">
-    <h3>🌡 Sensor Live</h3>
+<div style="padding:20px; margin-top:20px; border:1px solid #b68509; border-radius:12px; width:250px;">
+    <h3> Sensor Live</h3>
 
     <p>Temperature: <span id="temp">--</span> °C</p>
     <p>Humidity: <span id="hum">--</span> %</p>
@@ -630,11 +630,21 @@ html, body {
 
 <script>
 async function loadSensor() {
-    const res = await fetch('/sensor/latest');
-    const data = await res.json();
+    try {
+        const res = await fetch('/sensor/latest');
+        const data = await res.json();
 
-    document.getElementById('temp').innerText = data.temperatur;
-    document.getElementById('hum').innerText = data.humidity;
+        console.log(data); // 👈 важно для проверки
+
+        document.getElementById('temp').innerText =
+            data.temperatur ?? data.temperature ?? '--';
+
+        document.getElementById('hum').innerText =
+            data.humidity ?? '--';
+
+    } catch (e) {
+        console.error('Sensor error:', e);
+    }
 }
 
 setInterval(loadSensor, 3000);
