@@ -559,19 +559,127 @@ html, body {
 .stat-label {
     margin-bottom: 0;
 }
+.dash-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-radius: 16px;
+
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* ЛЕВО */
+.dash-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.dash-title {
+    color: #fff;
+    margin: 0;
+}
+
+.dash-eyebrow {
+    font-size: 12px;
+    opacity: 0.7;
+    color: #ffd002;
+}
+.dash-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+/* LIVE */
+.live-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.live-text {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #22c55e;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+/* дата */
+.dash-date {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+/* сенсоры */
+.sensor-inline {
+    display: flex;
+    gap: 16px;
+    margin-top: 4px;
+}
+
+.sensor-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 16px;
+    font-weight: 500;
+    color: #e2e8f0;
+}
+
+.sensor-box .value {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.sensor-box .unit {
+    font-size: 13px;
+    opacity: 0.7;
+}
 </style>
 
 
 <div class="dash-wrap">
 
-    <header class="dash-header">
-        <div class="dash-header-left">
-            <div class="dash-eyebrow">Smart Library</div>
-            <h1 class="dash-title">Bestandsübersicht <span></span></h1>
+<header class="dash-header">
+    <div class="dash-left">
+        <div class="dash-eyebrow">Smart Library</div>
+        <h1 class="dash-title">Bestandsübersicht</h1>
+    </div>
+
+<div class="dash-right">
+    <div class="live-row">
+        <span class="dot"></span>
+        <span class="live-text">LIVE</span>
+    </div>
+
+    <div class="dash-date" id="js-date"></div>
+
+    <div class="sensor-inline">
+        <div class="sensor-box">
+            <span class="icon">🌡</span>
+            <span class="value" id="temp">--</span>
+            <span class="unit">°C</span>
         </div>
 
-             <div class="dash-date" id="js-date"></div>
-    </header>
+        <div class="sensor-box">
+            <span class="icon">💧</span>
+            <span class="value" id="hum">--</span>
+            <span class="unit">%</span>
+        </div>
+    </div>
+</div>
+</header>
 
     <div class="stat-grid">
 
@@ -605,7 +713,7 @@ html, body {
 
         <div class="stat-card stat-card--borrowed">
             <div class="stat-card-inner">
-           <div class="stat-head"> 
+           <div class="stat-head">
     <div class="stat-icon stat-icon--borrowed">&#8593;</div>
     <div class="stat-label">Ausgeliehen</div>
 </div>
@@ -621,35 +729,7 @@ html, body {
         </div>
 
     </div>
-<div style="padding:20px; margin-top:20px; border:1px solid #b68509; border-radius:12px; width:250px;">
-    <h3> Sensor Live</h3>
 
-    <p>Temperature: <span id="temp">--</span> °C</p>
-    <p>Humidity: <span id="hum">--</span> %</p>
-</div>
-
-<script>
-async function loadSensor() {
-    try {
-        const res = await fetch('/sensor/latest');
-        const data = await res.json();
-
-        console.log(data);
-
-        document.getElementById('temp').innerText =
-            data.temperatur ?? data.temperature ?? '--';
-
-        document.getElementById('hum').innerText =
-            data.humidity ?? '--';
-
-    } catch (e) {
-        console.error('Sensor error:', e);
-    }
-}
-
-setInterval(loadSensor, 3000);
-loadSensor();
-</script>
     <div class="panel-grid">
 
         <div class="card">
