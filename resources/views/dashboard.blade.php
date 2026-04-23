@@ -605,7 +605,7 @@ html, body {
 
         <div class="stat-card stat-card--borrowed">
             <div class="stat-card-inner">
-           <div class="stat-head">
+           <div class="stat-head"> 
     <div class="stat-icon stat-icon--borrowed">&#8593;</div>
     <div class="stat-label">Ausgeliehen</div>
 </div>
@@ -634,7 +634,7 @@ async function loadSensor() {
         const res = await fetch('/sensor/latest');
         const data = await res.json();
 
-        console.log(data); // 👈 важно для проверки
+        console.log(data);
 
         document.getElementById('temp').innerText =
             data.temperatur ?? data.temperature ?? '--';

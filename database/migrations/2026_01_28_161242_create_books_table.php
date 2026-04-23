@@ -14,6 +14,10 @@ return new class extends Migration
             $table->string('author');
             $table->foreignId('genre_id')->constrained()->cascadeOnDelete();
             $table->boolean('is_available')->default(true);
+            $table->foreignId('location_id')
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
             $table->timestamps();
 });
 

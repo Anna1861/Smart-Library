@@ -26,6 +26,11 @@ class Book extends Model
     {
         return $this->hasMany(Borrowing::class);
     }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class, 'section_number', 'desc');
+    }
 }
 
 
