@@ -31,19 +31,18 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success', 'Genre created successfully.');
     }
-
 public function storeBook(Request $request)
 {
     $data = $request->validate([
         'title' => 'required|string',
         'author' => 'required|string',
         'genre_id' => 'required|exists:genres,id',
+        'section_number' => 'nullable|exists:locations,section_number',
         'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         'desc' => 'nullable|string'
     ]);
 
     if ($request->hasFile('image')) {
-
         $cloudinary = new Cloudinary([
             'cloud' => [
                 'cloud_name' => 'dherzxgwp',
@@ -66,4 +65,20 @@ public function storeBook(Request $request)
 
     return redirect()->back()->with('success', 'Book created successfully.');
 }
+
+public function assignLocation(Request $request)
+{
+    $request->validate([
+        'book_id' => 'required|exists:books,id',
+        'section_number' => 'required|exists:locations,section_number',
+    ]);
+
+    $book = Book::findOrFail($request->book_id);
+    $book->section_number = $request->section_number;
+    $book->save();
+
+    return redirect()->back()->with('success', 'Buch wurde der Regal zugewiesen.');
+}
+
+
 }

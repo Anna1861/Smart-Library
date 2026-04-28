@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\Book;
 use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
     protected $fillable = ['section_number', 'desc'];
-    public $incrementing = false;
 
-    public function book()
+    public function books()
     {
-        return $this->hasMany(Book::class, 'section_number', 'desc');
+        return $this->hasMany(Book::class, 'section_number', 'section_number');
     }
 }

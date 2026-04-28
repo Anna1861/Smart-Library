@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Genre;
 use App\Models\Borrowing;
+use App\Models\Location;
 
 class Book extends Model
 {
@@ -12,6 +13,7 @@ class Book extends Model
         'title',
         'author',
         'genre_id',
+        'section_number',
         'is_available',
         'image',
         'desc'
@@ -29,8 +31,6 @@ class Book extends Model
 
     public function location()
     {
-        return $this->belongsTo(Location::class, 'section_number', 'desc');
+        return $this->belongsTo(Location::class, 'section_number', 'section_number');
     }
 }
-
-
