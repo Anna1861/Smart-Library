@@ -29,7 +29,7 @@
 }
 </style>
 
-<img src="{{ asset('images/logo.png') }}" alt="Logo">
+<img src="{{ asset('images/logo.jpg') }}" alt="Logo">
 <body class="main-bg text-light">
 <nav class="navbar navbar-expand-lg navbar-dark bg-warning mb-4">
     <div class="container-fluid">
