@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([GenreSeeder::class, BookSeeder::class,]);
+    $this->call(LocationSeeder::class);
 
     }
 }

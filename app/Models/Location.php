@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     protected $fillable = ['section_number', 'desc'];
+    public $incrementing = false;
 
     public function book()
     {
-        return $this->hasOne(Book::class, 'section_number', 'desc');
+        return $this->hasMany(Book::class, 'section_number', 'desc');
     }
 }

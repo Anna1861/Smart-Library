@@ -320,8 +320,7 @@
                 <div class="book-cover">
 
                     @if($book->image)
-<img src="{{ $book->image }}">
-                    @else
+<img src="{{ asset('storage/' . $book->image) }}">                    @else
                         <div class="no-image">Kein Bild</div>
                     @endif
 
@@ -363,7 +362,7 @@
                 <div class="book-cover">
 
                     @if($book->image)
-                    <img src="{{ $book->image }}">
+    <img src="{{ asset('storage/' . $book->image) }}" width="150">
                     @else
                         <div class="no-image">Kein Bild</div>
                     @endif

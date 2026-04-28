@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('section_number');
             $table->string('desc')->nullable();
+                      $table->timestamps();
+
         });
     }
 

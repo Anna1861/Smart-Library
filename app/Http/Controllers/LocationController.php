@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Location;
+use App\Models\Book;
 
 class LocationController extends Controller
 {
@@ -12,7 +13,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -62,4 +63,19 @@ class LocationController extends Controller
     {
         //
     }
+
+public function assignBook(Request $request)
+{
+    $request->validate([
+        'book_id' => 'required|exists:books,id',
+        'location_id' => 'required|exists:locations,id',
+    ]);
+
+    $book = Book::find($request->book_id);
+    $book->location_id = $request->location_id;
+    $book->save();
+
+    return redirect()->back()->with('success', 'Книга привязана к секции');
+}
+
 }

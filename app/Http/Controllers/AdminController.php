@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Genre;
 use App\Models\Book;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use App\Models\Location;
 
 class AdminController extends Controller
 {
@@ -13,7 +13,8 @@ class AdminController extends Controller
     {
         $genres = Genre::all();
         $books = Book::all();
-        return view('admin.index', compact('genres', 'books'));
+        $locations = Location::all();
+        return view('admin.index', compact('genres', 'books', 'locations'));
     }
 
     public function storeGenre(Request $request)
@@ -40,13 +41,8 @@ public function storeBook(Request $request)
     ]);
 
     if ($request->hasFile('image')) {
-
-        $uploadedFileUrl = Cloudinary::upload(
-            $request->file('image')->getRealPath(),
-            ['folder' => 'books']
-        )->getSecurePath();
-
-        $data['image'] = $uploadedFileUrl;
+        $path = $request->file('image')->store('books', 'public');
+        $data['image'] = $path;
     }
 
     $data['is_available'] = true;
