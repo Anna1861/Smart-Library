@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{{ config('app.name', 'Smart Library') }}</title>
-
+<link rel="icon" href="{{ asset('favicon.ico') }}">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -29,7 +29,7 @@
 }
 </style>
 
-<img src="{{ asset('images/logo.jpg') }}" alt="Logo">
+
 <body class="main-bg text-light">
 <nav class="navbar navbar-expand-lg navbar-dark bg-warning mb-4">
     <div class="container-fluid">
