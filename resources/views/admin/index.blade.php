@@ -261,11 +261,9 @@
                     <tr>
 
                         <td>
-                            <img
-                                src="{{ $book->image ? asset('storage/'.$book->image) : 'https://via.placeholder.com/50x70' }}"
-                                width="50"
-                                style="border-radius: 6px; object-fit: cover;"
-                            >
+                           @if($book->image)
+    <img src="{{ $book->image }}">
+@endif
                         </td>
 
                         <td class="fw-semibold">{{ $book->title }}</td>

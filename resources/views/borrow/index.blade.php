@@ -320,7 +320,7 @@
                 <div class="book-cover">
 
                     @if($book->image)
-<img src="{{ asset('storage/' . $book->image) }}">                    @else
+    <img src="{{ $book->image }}">
                         <div class="no-image">Kein Bild</div>
                     @endif
 
@@ -351,7 +351,7 @@
 <div class="container py-4">
 
     <h2 class="text-white mt-4 mb-3" style="opacity:0.8;">
-        Ausgeliehene Bücher
+        Ausgeliehene Bücher1
     </h2>
 
     <div class="book-grid" style="opacity:0.5;">
@@ -362,7 +362,7 @@
                 <div class="book-cover">
 
                     @if($book->image)
-    <img src="{{ asset('storage/' . $book->image) }}" width="150">
+    <img src="{{ $book->image }}">
                     @else
                         <div class="no-image">Kein Bild</div>
                     @endif

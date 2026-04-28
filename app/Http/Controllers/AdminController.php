@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Genre;
 use App\Models\Book;
 use App\Models\Location;
+use Cloudinary\Cloudinary;
+
 
 class AdminController extends Controller
 {
@@ -41,8 +43,21 @@ public function storeBook(Request $request)
     ]);
 
     if ($request->hasFile('image')) {
-        $path = $request->file('image')->store('books', 'public');
-        $data['image'] = $path;
+
+        $cloudinary = new Cloudinary([
+            'cloud' => [
+                'cloud_name' => 'dherzxgwp',
+                'api_key' => '661234765825222',
+                'api_secret' => 'wXTBgPOZsrC3OIw17vGD8jauUJ4'
+            ]
+        ]);
+
+        $uploaded = $cloudinary->uploadApi()->upload(
+            $request->file('image')->getRealPath(),
+            ['folder' => 'books']
+        );
+
+        $data['image'] = $uploaded['secure_url'];
     }
 
     $data['is_available'] = true;
