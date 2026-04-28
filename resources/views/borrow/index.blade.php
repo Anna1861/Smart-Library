@@ -351,7 +351,7 @@
 <div class="container py-4">
 
     <h2 class="text-white mt-4 mb-3" style="opacity:0.8;">
-        Ausgeliehene Bücher1
+        Ausgeliehene Bücher
     </h2>
 
     <div class="book-grid" style="opacity:0.5;">
