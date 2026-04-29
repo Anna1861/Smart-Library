@@ -66,6 +66,21 @@ public function storeBook(Request $request)
     return redirect()->back()->with('success', 'Book created successfully.');
 }
 
+public function storeLocation(Request $request)
+{
+    $request->validate([
+        'section_number' => 'required|string|unique:locations,section_number',
+        'desc' => 'nullable|string',
+    ]);
+
+    Location::create([
+        'section_number' => $request->section_number,
+        'desc' => $request->desc,
+    ]);
+
+    return redirect()->back()->with('success', 'Regal wurde erstellt.');
+}
+
 public function assignLocation(Request $request)
 {
     $request->validate([

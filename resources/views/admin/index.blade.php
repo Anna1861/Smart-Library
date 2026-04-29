@@ -183,6 +183,26 @@
         border-radius: 10px;
         border: 1px dashed rgba(255,255,255,0.1);
     }
+
+    .shelf-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+    }
+
+    .shelf-list .badge-shelf {
+        font-size: 13px;
+        padding: 6px 12px;
+    }
+
+    .section-label {
+        color: rgba(255,255,255,0.6);
+        font-size: 14px;
+        font-weight: 500;
+        margin-top: 20px;
+        margin-bottom: 8px;
+    }
 </style>
 
 <div class="container py-5">
@@ -192,6 +212,16 @@
     @if(session('success'))
         <div class="alert alert-success shadow-sm">
             {{ session('success') }}
+        </div>
+    @endif
+
+    @if($errors->any())
+        <div class="alert alert-danger shadow-sm">
+            <ul style="margin:0; padding-left:20px;">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
     @endif
 
@@ -211,6 +241,12 @@
                 <button class="nav-link" id="genre-tab" data-bs-toggle="tab"
                         data-bs-target="#genre-pane" type="button" role="tab">
                     Neues Genre
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="location-tab" data-bs-toggle="tab"
+                        data-bs-target="#location-pane" type="button" role="tab">
+                    Neues Regal
                 </button>
             </li>
             <li class="nav-item" role="presentation">
@@ -273,6 +309,45 @@
                     <input type="text" name="name" class="form-control mb-3" placeholder="Genre Name" required>
                     <button class="btn btn-modern w-100">Erstellen</button>
                 </form>
+            </div>
+
+            <!-- NEW LOCATION -->
+            <div class="tab-pane fade" id="location-pane" role="tabpanel">
+                <form action="{{ route('admin.location.store') }}" method="POST">
+                    @csrf
+
+                    <div class="row g-2 mb-2">
+                        <div class="col-md-4">
+                            <input type="text" name="section_number"
+                                   class="form-control"
+                                   placeholder="Regal-Nummer (z.B. E1)"
+                                   value="{{ old('section_number') }}"
+                                   required>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" name="desc"
+                                   class="form-control"
+                                   placeholder="Beschreibung (z.B. Comics)"
+                                   value="{{ old('desc') }}">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-modern w-100">Regal erstellen</button>
+                </form>
+
+                @if($locations->count() > 0)
+                    <div class="section-label">
+                        Vorhandene Regale ({{ $locations->count() }})
+                    </div>
+                    <div class="shelf-list">
+                        @foreach($locations as $location)
+                            <span class="badge-shelf">
+                                {{ $location->section_number }}
+                                @if($location->desc) — {{ $location->desc }} @endif
+                            </span>
+                        @endforeach
+                    </div>
+                @endif
             </div>
 
             <!-- ASSIGN BOOK TO LOCATION -->

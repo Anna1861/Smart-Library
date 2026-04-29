@@ -28,4 +28,5 @@ Route::post('/borrow', [BorrowController::class, 'borrowBook'])->name('borrow.bo
 
 Route::match(['get', 'post'], '/api/sensors/store', [SensorReadingController::class, 'store']);
 Route::get('/sensor/latest', [DashboardController::class, 'latest']);
+Route::post('/admin/location', [AdminController::class, 'storeLocation'])->name('admin.location.store');
 Route::post('/admin/book/assign-location', [AdminController::class, 'assignLocation'])->name('admin.book.assignLocation');
